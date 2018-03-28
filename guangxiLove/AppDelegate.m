@@ -7,9 +7,30 @@
 //
 
 #import "AppDelegate.h"
+#import <WebKit/WebKit.h>
+#import <YTKNetwork.h>
+#import "FKLoginViewController.h"
+#import "ViewController.h"
+NSString *const FKLoginStateChangedNotificationKey = @"FKLoginStateChangedNotificationKey";
+
 
 @interface AppDelegate ()
+- (void)configSVProgressHUD;
+- (void)configScrollViewAdapt4IOS11;
+- (void)configNetworkApiEnv;
+- (void)registerNavgationRouter;
+- (void)registerSchemaRouter;
 
+/**
+ tabbar控制器
+ */
+@property (nonatomic, strong) UITabBarController *tabbarController;
+
+
+/**
+ 登录控制器
+ */
+@property (nonatomic, strong) FKLoginViewController *loginController;
 @end
 
 @implementation AppDelegate
@@ -17,82 +38,269 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //设置导航栏不透明
+    [[UINavigationBar appearance] setTranslucent:NO];
+    
+    [UITableView appearance].estimatedRowHeight = 0;
+    [UITableView appearance].estimatedSectionHeaderHeight = 0;
+    [UITableView appearance].estimatedSectionFooterHeight = 0;
+    
+    [[UITabBar appearance] setTintColor:[UIColor redColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:@"#222222"]];
+    
+    // 普通注册
+    [self configSVProgressHUD];
+    [self configScrollViewAdapt4IOS11];
+    [self configNetworkApiEnv];
+    
+    // 路由注册
+    [self registerNavgationRouter];
+    [self registerSchemaRouter];
+    
+    // 配置根视图控制器
+    [self setupRootController];
+    
     return YES;
 }
 
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+    
+    // 默认的路由 跳转等等
+    if ([[url scheme] isEqualToString:FKDefaultRouteSchema]) {
+        
+        return [[JLRoutes globalRoutes] routeURL:url];
+    }
+    // http
+    else if ([[url scheme] isEqualToString:FKHTTPRouteSchema])
+    {
+        return [[JLRoutes routesForScheme:FKHTTPRouteSchema] routeURL:url];
+    }
+    // https
+    else if ([[url scheme] isEqualToString:FKHTTPsRouteSchema])
+    {
+        return [[JLRoutes routesForScheme:FKHTTPsRouteSchema] routeURL:url];
+    }
+    // Web交互请求
+    else if ([[url scheme] isEqualToString:FKWebHandlerRouteSchema])
+    {
+        return [[JLRoutes routesForScheme:FKWebHandlerRouteSchema] routeURL:url];
+    }
+    // 请求回调
+    else if ([[url scheme] isEqualToString:FKComponentsCallBackHandlerRouteSchema])
+    {
+        return [[JLRoutes routesForScheme:FKComponentsCallBackHandlerRouteSchema] routeURL:url];
+    }
+    // 未知请求
+    else if ([[url scheme] isEqualToString:FKUnknownHandlerRouteSchema])
+    {
+        return [[JLRoutes routesForScheme:FKUnknownHandlerRouteSchema] routeURL:url];
+    }
+    return NO;
 }
 
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+#pragma mark - Engine
+/// 初始化根页面
+- (void)setupRootController
+{
+    self.window = [[UIWindow alloc]init];
+    self.window.frame = [UIScreen mainScreen].bounds;
+    
+    //注册通知
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:FKLoginStateChangedNotificationKey object:nil] subscribeNext:^(NSNotification * _Nullable noti) {
+        
+        NSNumber * number = [[NSUserDefaults standardUserDefaults] objectForKey:@"isLogin"];
+        BOOL isLogin = NO;
+        if (number) {
+            isLogin = number.boolValue;
+        }
+        if (isLogin) {//已登录
+            
+            [self.window setRootViewController:self.tabbarController];
+        }else//未登录
+        {
+            [self.window setRootViewController:self.loginController];
+        }
+    }];
+    
+    // 发送一次通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:FKLoginStateChangedNotificationKey object:nil];
+    
+    [self.window makeKeyAndVisible];
 }
 
+#pragma mark - Getter
+- (UITabBarController *)tabbarController
+{
+    if (!_tabbarController) {
+        
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        _tabbarController = [board instantiateViewControllerWithIdentifier:@"home_guangxilove"];
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    }
+    return _tabbarController;
 }
 
+- (FKLoginViewController *)loginController
+{
+    if (!_loginController) {
+        _loginController = [[FKLoginViewController alloc] init];
+    }
+    return _loginController;
+}
+@end
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+#pragma mark - 初始化 SVProgressHUD 配置
+@implementation AppDelegate(SVProgressHUD)
+
+- (void)configSVProgressHUD
+{
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
+    [SVProgressHUD setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.5f]];
+    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+    [SVProgressHUD setRingThickness:4];
+    [SVProgressHUD setMinimumSize:CGSizeMake(80, 80)];
 }
 
+@end
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    // Saves changes in the application's managed object context before the application terminates.
-    [self saveContext];
+#pragma mark - IOS11适配
+@implementation AppDelegate(Adapt4IOS11)
+
+- (void)configScrollViewAdapt4IOS11
+{
+    if (IOS11_OR_LATER) {
+        [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        [UITableView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        [UIWebView appearance].scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        [WKWebView appearance].scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        
+        [UITableView appearance].estimatedRowHeight = 0;
+        [UITableView appearance].estimatedSectionHeaderHeight = 0;
+        [UITableView appearance].estimatedSectionFooterHeight = 0;
+    }
+}
+@end
+
+#pragma mark - YTKNetworking 接口地址配置
+@implementation AppDelegate(NetworkApiEnv)
+
+- (void)configNetworkApiEnv
+{
+    YTKNetworkConfig *config = [YTKNetworkConfig sharedConfig];
+//    if (DEBUG) {
+//        config.debugLogEnabled = YES;
+//    }else
+    {
+        config.debugLogEnabled = NO;
+    }
+    config.baseUrl = @"http://www.baidu.com";
+    config.cdnUrl = @"http://www.baidu.com";
+    
+}
+@end
+
+#pragma mark - 路由注册
+@implementation AppDelegate(RouterRegister)
+
+#pragma mark - 普通的跳转路由注册
+- (void)registerNavgationRouter
+{
+    // push
+    // 路由 /com_madao_navPush/:viewController
+    [[JLRoutes globalRoutes] addRoute:FKNavPushRoute handler:^BOOL(NSDictionary<NSString *,id> * _Nonnull parameters) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self _handlerSceneWithPresent:NO parameters:parameters];
+            
+        });
+        return YES;
+    }];
+    
+    // present
+    // 路由 /com_madao_navPresent/:viewController
+    [[JLRoutes globalRoutes] addRoute:FKNavPresentRoute handler:^BOOL(NSDictionary<NSString *,id> * _Nonnull parameters) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self _handlerSceneWithPresent:YES parameters:parameters];
+            
+        });
+        return YES;
+    }];
+    
+    // sb push
+    // 路由 /com_madao_navStoryboardPush/:viewController
+    [[JLRoutes globalRoutes] addRoute:FKNavStoryBoardPushRoute handler:^BOOL(NSDictionary<NSString *,id> * _Nonnull parameters) {
+        
+        return YES;
+    }];
+    
 }
 
+#pragma mark - Schema 匹配
+- (void)registerSchemaRouter
+{
+    // HTTP注册
+    [[JLRoutes routesForScheme:FKHTTPRouteSchema] addRoute:@"/somethingHTTP" handler:^BOOL(NSDictionary<NSString *,id> * _Nonnull parameters) {
+        
+        return NO;
+    }];
+    
+    // HTTPS注册
+    [[JLRoutes routesForScheme:FKHTTPsRouteSchema] addRoute:@"/somethingHTTPs" handler:^BOOL(NSDictionary<NSString *,id> * _Nonnull parameters) {
+        return NO;
+        
+    }];
+    
+    // 自定义 Schema注册
+    [[JLRoutes routesForScheme:FKWebHandlerRouteSchema] addRoute:@"/somethingCustom" handler:^BOOL(NSDictionary<NSString *,id> * _Nonnull parameters) {
+        return NO;
+        
+    }];
+}
 
-#pragma mark - Core Data stack
-
-@synthesize persistentContainer = _persistentContainer;
-
-- (NSPersistentContainer *)persistentContainer {
-    // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
-    @synchronized (self) {
-        if (_persistentContainer == nil) {
-            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"guangxiLove"];
-            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
-                if (error != nil) {
-                    // Replace this implementation with code to handle the error appropriately.
-                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    
-                    /*
-                     Typical reasons for an error here include:
-                     * The parent directory does not exist, cannot be created, or disallows writing.
-                     * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                     * The device is out of space.
-                     * The store could not be migrated to the current model version.
-                     Check the error message to determine what the actual problem was.
-                    */
-                    NSLog(@"Unresolved error %@, %@", error, error.userInfo);
-                    abort();
-                }
-            }];
+#pragma mark - Private
+/// 处理跳转事件
+- (void)_handlerSceneWithPresent:(BOOL)isPresent parameters:(NSDictionary *)parameters
+{
+    // 当前控制器
+    NSString *controllerName = [parameters objectForKey:FKControllerNameRouteParam];
+    UIViewController *currentVC = [self _currentViewController];
+    UIViewController *toVC = [[NSClassFromString(controllerName) alloc] init];
+    toVC.params = parameters;
+    if (currentVC && currentVC.navigationController) {
+        if (isPresent) {
+            [currentVC.navigationController presentViewController:toVC animated:YES completion:nil];
+        }else
+        {
+            [currentVC.navigationController pushViewController:toVC animated:YES];
         }
     }
+}
+
+/// 获取当前控制器
+- (UIViewController *)_currentViewController{
     
-    return _persistentContainer;
+    UIViewController * currVC = nil;
+    UIViewController * Rootvc = self.window.rootViewController ;
+    do {
+        if ([Rootvc isKindOfClass:[UINavigationController class]]) {
+            UINavigationController * nav = (UINavigationController *)Rootvc;
+            UIViewController * v = [nav.viewControllers lastObject];
+            currVC = v;
+            Rootvc = v.presentedViewController;
+            continue;
+        }else if([Rootvc isKindOfClass:[UITabBarController class]]){
+            UITabBarController * tabVC = (UITabBarController *)Rootvc;
+            currVC = tabVC;
+            Rootvc = [tabVC.viewControllers objectAtIndex:tabVC.selectedIndex];
+            continue;
+        }
+    } while (Rootvc!=nil);
+    
+    return currVC;
 }
 
-#pragma mark - Core Data Saving support
-
-- (void)saveContext {
-    NSManagedObjectContext *context = self.persistentContainer.viewContext;
-    NSError *error = nil;
-    if ([context hasChanges] && ![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
-        abort();
-    }
-}
 
 @end

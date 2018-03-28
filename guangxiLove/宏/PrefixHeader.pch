@@ -1,0 +1,59 @@
+//
+//  PrefixHeader.pch
+//  guangxiLove
+//
+//  Created by 赵中良 on 2018/3/14.
+//  Copyright © 2018年 赵中良. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+// 提示组件
+#import "SVProgressHUD+Helper.h"
+// 全局定义
+#import "FKFunctionDefine.h"
+#import "FKGlobalDefine.h"
+// 响应式框架
+#import "ReactiveObjC/ReactiveObjC.h"
+// 自动布局框架
+#import "Masonry.h"
+// 路由常量
+#import "FKRouterConstant.h"
+#import "JLRoutes+GenerateURL.h"
+
+// Request RAC
+#import "FKBaseRequest+Rac.h"
+
+// FXXK Base Protocol
+#import "FKViewProtocol.h"
+#import "FKViewModelProtocol.h"
+#import "FKViewControllerProtocol.h"
+
+// Category
+#import "UIView+NonBase.h"
+#import "NSObject+NonBase.h"
+#import "UIViewController+NonBase.h"
+#import "UIColor+FKColor.h"
+#import "UIImage+FKColor.h"
+
+#import "NSString+SringNull.h"
+#import "Toast+UIView.h"
+
+#import "MJRefresh.h"
+#import "UIImageView+WebCache.h"
+#import "URL.h"
+
+#import "UIView+Extension.h"
+#define SEGMENT_HEIGHT 44
+#define RGBA(r,g,b,a) [UIColor colorWithRed:r green:g blue:b alpha:a]
+#define DEFAULT_BACKGROUND_COLOR RGBA(0.96, 0.96, 0.96, 1.0f)
+
+
+#endif
+
+#endif /* PrefixHeader_pch */
