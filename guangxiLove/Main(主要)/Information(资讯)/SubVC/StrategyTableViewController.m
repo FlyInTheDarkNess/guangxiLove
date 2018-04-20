@@ -41,9 +41,13 @@
     if (!cell) {
         NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"HomeTableViewCell" owner:self options:nil];
         cell = nib[0];
-    }
+    } 
     cell.cellData = [NSDictionary dictionary];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
 }
 
 #pragma mark - tableView delegate

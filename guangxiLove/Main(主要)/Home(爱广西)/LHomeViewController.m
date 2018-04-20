@@ -14,6 +14,7 @@
 #import "ToDoViewController.h"          //待办事项
 #import <BHInfiniteScrollView/BHInfiniteScrollView.h>//轮播控件
 #import "ZZLAllViewController.h"
+#import "LInfoDetailViewController.h"   //帖子详情页面
 
 #define TitleView (@"titleView")  //
 #define ActivityView (@"activityView")
@@ -417,6 +418,11 @@
     }else if([sectionTitle isEqualToString:ActivityView]){
         return;
     }else if([sectionTitle isEqualToString:InformationView]){
+        
+        LInfoDetailViewController *InfoDVC = [[LInfoDetailViewController alloc]init];
+        InfoDVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:InfoDVC animated:YES];
+        
     }
     
     //资讯跳转
