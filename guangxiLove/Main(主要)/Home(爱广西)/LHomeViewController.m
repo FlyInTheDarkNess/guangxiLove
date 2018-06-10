@@ -25,6 +25,9 @@
 #import "HomeTableViewCell.h"
 #import "ImageBtn.h"
 
+#define oriOfftY -244
+#define oriHeight 200
+
 
 @interface LHomeViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,BHInfiniteScrollViewDelegate,bringDelegate>
 {
@@ -64,6 +67,7 @@
 @property (nonatomic,strong) NSArray *titleArr; //资讯标题
 @property (nonatomic,strong) NSArray *infoImageArr; //资讯图片
 
+
 @end
 
 @implementation LHomeViewController
@@ -86,6 +90,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+   
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self NormalIpget];
@@ -168,7 +174,15 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         WarnningLabel.hidden = YES;
     });
+    
+     [self wjNavigationSettings];
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.hidden = NO;
+}
+
 
 #pragma mark - 设置标题栏
 - (void)titleView{
@@ -245,9 +259,6 @@
     [self.navigationController pushViewController:chVC animated:YES];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBar.hidden = NO;
-}
 
 //ip拼接
 - (void)NormalIpget{
@@ -1046,6 +1057,56 @@
     [titleBtn resetdata:itemid :[UIImage imageNamed:@"home_down"]];
     actScrollView.imagesArray = arr;
 }
+
+
+#pragma mark - navigation settings
+- (void)wjNavigationSettings {
+    // 设置导航栏的背景
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    // 取消掉底部的那根线
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    
+    //设置标题
+    UILabel *title = [[UILabel alloc] init];
+    title.text = @"个人主页";
+    [title sizeToFit];
+    // 开始的时候看不见，所以alpha值为0
+    title.textColor = [UIColor colorWithWhite:0 alpha:0];
+    
+    self.navigationItem.titleView = title;
+}
+
+#pragma mark - scrollview
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"%f", scrollView.contentOffset.y);
+    CGFloat offset = scrollView.contentOffset.y - oriOfftY;
+    
+    CGFloat imgH = oriHeight - offset;
+    if (imgH < 64) {
+        imgH = 64;
+    }
+    
+    //根据透明度来生成图片
+    //找最大值/
+    CGFloat alpha = offset * 1 / 136.0;   // (200 - 64) / 136.0f
+    if (alpha >= 1) {
+        alpha = 0.99;
+    }
+    
+    //拿到标题 标题文字的随着移动高度的变化而变化
+    UILabel *titleL = (UILabel *)self.navigationItem.titleView;
+    titleL.textColor = [UIColor colorWithWhite:0 alpha:alpha];
+
+    
+    //把颜色生成图片
+    UIColor *alphaColor = [UIColor colorWithWhite:1 alpha:alpha];
+    //把颜色生成图片
+    UIImage *alphaImage = [UIImage imageWithColor:alphaColor];
+    //修改导航条背景图片
+    [self.navigationController.navigationBar setBackgroundImage:alphaImage forBarMetrics:UIBarMetricsDefault];
+    
+}
+
 
 /*
  // Override to support conditional editing of the table view.

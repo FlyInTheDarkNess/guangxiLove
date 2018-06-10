@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Login(&#x767b;&#x5f55;&#x6ce8;&#x518c;)/New Group/Controller/FKLoginViewController.m"
+            timestampString = "542688275.614385"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-fk_bindViewModelForController"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Login(&#x767b;&#x5f55;&#x6ce8;&#x518c;)/New Group/Controller/FKLoginViewController.m"
+            timestampString = "542688277.014293"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "-fk_bindViewModelForController"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Login(&#x767b;&#x5f55;&#x6ce8;&#x518c;)/New Group/Controller/FKLoginViewController.m"
+            timestampString = "542688281.43846"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "-fk_bindViewModelForController"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Login(&#x767b;&#x5f55;&#x6ce8;&#x518c;)/New Group/Controller/FKLoginViewController.m"
+            timestampString = "542688282.493871"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "-fk_bindViewModelForController"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Login(&#x767b;&#x5f55;&#x6ce8;&#x518c;)/New Group/Controller/FKLoginViewController.m"
+            timestampString = "542688286.47859"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "-fk_bindViewModelForController"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Home(&#x7231;&#x5e7f;&#x897f;)/&#x5b50;&#x753b;&#x9762;/&#x5168;&#x90e8;&#x529f;&#x80fd;/ZZLAllViewController.m"
+            timestampString = "543830025.859815"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "-collectionView:numberOfItemsInSection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Home(&#x7231;&#x5e7f;&#x897f;)/&#x5b50;&#x753b;&#x9762;/&#x5168;&#x90e8;&#x529f;&#x80fd;/ZZLAllViewController.m"
+            timestampString = "543830025.8599761"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "-numberOfSectionsInCollectionView:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Home(&#x7231;&#x5e7f;&#x897f;)/&#x5b50;&#x753b;&#x9762;/&#x5168;&#x90e8;&#x529f;&#x80fd;/ZZLAllViewController.m"
+            timestampString = "543830025.860046"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "759"
+            endingLineNumber = "759"
+            landmarkName = "-getArrFormDic:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Information(&#x8d44;&#x8baf;)/SubVC/InfoDetail(&#x8d44;&#x8baf;&#x8be6;&#x60c5;)/LInfoDetailViewController.m"
+            timestampString = "545898690.9314179"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-headViewInit"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Information(&#x8d44;&#x8baf;)/SubVC/InfoDetail(&#x8d44;&#x8baf;&#x8be6;&#x60c5;)/LInfoDetailViewController.m"
+            timestampString = "545898690.93154"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "-headViewInit"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Information(&#x8d44;&#x8baf;)/SubVC/InfoDetail(&#x8d44;&#x8baf;&#x8be6;&#x60c5;)/LInfoDetailViewController.m"
+            timestampString = "545898690.931595"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "-headViewInit"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Information(&#x8d44;&#x8baf;)/SubVC/InfoDetail(&#x8d44;&#x8baf;&#x8be6;&#x60c5;)/LInfoDetailViewController.m"
+            timestampString = "545898690.931648"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "-headViewInit"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "guangxiLove/Main(&#x4e3b;&#x8981;)/Information(&#x8d44;&#x8baf;)/SubVC/InfoDetail(&#x8d44;&#x8baf;&#x8be6;&#x60c5;)/LInfoDetailViewController.m"
+            timestampString = "545898690.931697"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "-contentViewInit"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
